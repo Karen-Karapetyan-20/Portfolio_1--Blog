@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Update
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-4">
+    <div class="row">
+        <div class="col-8 m-auto">
+            <form method="post" enctype="multipart/form-data" action="{% url 'articles:update' form.instance.id %}" novalidate>
+                {% csrf_token %}
+                {% if user == form.instance.author %}
+                    {{ form | crispy }}
+                    <br>
+                    <div class="row">
+                        <div class="col-8 m-auto">
+                            <button type="submit" class="btn btn-outline-success btn-lg">Update</button>
+                            <a class="btn btn-outline-danger btn-lg" href="{% url 'articles:delete' form.instance.id %}">Delete</a>
+                            <a class="btn btn-outline-warning btn-lg" href="{% url 'articles:home' %}">Cancel</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <h1>You can't update this article.</h1>
+                    <a href="{% url 'articles:home' %}" class="btn btn-outline-warning">Articles</a>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

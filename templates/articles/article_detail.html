@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Detail
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h5>
+            Author: {{ article.author }}
+        </h5>
+        {% if article.article_taken %}
+            <h4>
+                Article taken: <a href="{{ article.article_taken }}">{{ article.article_taken }}</a>
+            </h4>
+        {% endif %}
+        <h5>
+            Խումբ: {{ article.description }}
+        </h5><br>
+        {% if article.video %}
+            <div class="row mt-4 mb-4">
+                <div class="col-6 m-auto">
+                    <video height="100%" width="600px" controls>
+                        <source src="{{ article.video.url }}">
+                    </video>
+                </div>
+            </div>
+        {% endif %}
+        <div class="bg-dark">
+            <br>
+            <h3 class="text-light ml-4">
+                {{ article.title }}
+            </h3>
+            <br>
+            <p class="text-light ml-2">
+                {{ article.text }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

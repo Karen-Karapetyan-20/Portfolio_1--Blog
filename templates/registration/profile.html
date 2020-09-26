@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+    My Profile
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-4">
+                <img class="rounded account-img float-left" src="{{ user.profile.image.url }}" width="350" height="400">
+            </div>
+            <div class="col-4">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Profile Info</legend>
+                        {{ u_form|crispy }}
+                        {{ p_form|crispy }}
+                    </fieldset>
+                    <h4><a href="{% url 'users:password_change' %}">Change password</a></h4><br>
+                    <div class="row">
+                        <div class="col-8 m-auto">
+                            <button type="submit" class="btn btn-outline-success">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

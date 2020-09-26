@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Delete
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-8 m-auto">
+            {% if user == article.author %}
+                <form method="post" action="{% url 'articles:delete' article.id %}" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <h1>Do You want to delete '{{ article.title }}' article:</h1>
+                    <div class="row mt-4">
+                        <div class="col-6 m-auto">
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            <a href="{% url 'articles:home' %}" class="btn btn-outline-warning">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            {% else %}
+                <h1>You can't delete this article!</h1>
+                <a href="{% url 'articles:home' %}" class="btn btn-outline-warning">Articles</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
